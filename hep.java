@@ -1,6 +1,8 @@
+import java.util.Arrays;
 import java.util.Random;
 
 class Expmodel {
+    // Both costs and distances should decline along the index, so cbl[0]>cbl[1]>cbl[2]>cbl[3], so does dbl
     double[] cbl = new double[4]; double[] dbl = new double[4];
 
     public void addinfo(double[] costs, double[] distances) {
@@ -15,12 +17,19 @@ class Expmodel {
         }
         return tmp;
     }
+    public double[] efficiency(int nodes) {
+        double[] tmp = new double[nodes];
+        for (int k=0; k<nodes; k++) {tmp[k] = cbl[k]/dbl[k];} return tmp;
+    }
 
+    public double[] optimization() {
+        addinfo({64.2, 50.0, 38.3, 17.9}, {183.0, 152.6, 120.3, 73.8});
+    }
 }
 
 public class hep { //HEP: Homogeneous Efficiency Problem 
     public static void main(String[] args) {
         Expmodel mod1 = new Expmodel();
-        System.out.println(mod1.randshare(100,4).toString());
+        System.out.println(Arrays.toString(mod1.randshare(100,4)));
     }
 }
