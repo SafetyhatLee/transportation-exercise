@@ -2,14 +2,38 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
-class Micromod {
+class Vehicles {
 
-    class User {
-        String username; int usercode;
+    class Container {
+        static int[] location; static int vehicleCapacity;
+        Vehicle[] inContainer = new Vehicle[vehicleCapacity];
         boolean isMember;
-    }
 
+        public Vehicle openVehicle() {
+            Random rand = new Random(); boolean isopened = false;
+            int[] unable = new int[vehicleCapacity-1]; int ind = 0;
+            Vehicle veh;
+            while (!isopened) {
+                i = rand.randInt(0, vehicleCapacity-1);
+                if (!Arrays.asList(unable).contains(i) && inContainer[i] != null) {
+                    if (inContainer[i].battery >= 30.0) {
+                        System.out.println("Container Opened. Your vehicle is ready.");
+                        veh = inContainer[i]; isOpened = true; 
+                    } else {
+                        unable[ind] = i; ind++;
+                    }
+                } else if (!Arrays.asList(unable).contains(i) && inContainer[i] == null) {
+                    unable[ind] = i; ind++;
+                }
+            }
+            return veh;
+        }
+
+        public void store(Vehicle)
+    }
+    
     class Vehicle {
 
         int vhc; int[] loc; String currentuser;
