@@ -33,3 +33,8 @@ class Member implements Users {
     checkBadge(userID, bad) ? badges.add(bad) : System.err.println("This badge is not available for you");
   }  
 }
+
+// Badge bad = new HashMap<String, Object>(); -> Like a dictionary
+// bad.get("imageURL", "--a certain image direction--")
+// bad.get("name", "--a certain badge name about a certain achievement--")
+// bad.get("date", datetime.datetime.now())
