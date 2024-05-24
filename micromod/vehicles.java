@@ -7,13 +7,33 @@ import java.util.Random;
 class Vehicles {
 
     class Container {
-        static int[] location; static int vehicleCapacity;
-        Vehicle[] inContainer = new Vehicle[vehicleCapacity];
-        boolean isMember;
+        
+        static double[] location; static int capacity;
+        Vehicle[] inContainer;
+        int vehicleIn;
 
+        public Container(double[] location, int capacity, Vehicle[] first) {
+            this.location = location, this.capacity = capacity;
+            inContainer = new Vehicle[capacity];
+            vehicleIn = capacity;
+            try {
+                initial(first);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.err.println("The vehicles ready for registration exceeds the capacity of this container");
+                System.out.println("This container opens for vehicles within capacity only");
+                for (int k=0; k<capacity; k++) {inContainer[k]=first[k];}
+            } finally {
+                System.out.println("Registration complete");
+            }
+        }
+
+        public void initial(Vehicle[] first) {
+            int k=0; for (Vehicle veh : first) {inContainer[k] = veh; k++;}
+        }
+        
         public Vehicle openVehicle() {
             Random rand = new Random(); boolean isopened = false;
-            int[] unable = new int[vehicleCapacity-1]; int ind = 0;
+            int[] able = new int[vehicleCapacity-1]; int ind = 0;
             Vehicle veh;
             while (!isopened) {
                 i = rand.randInt(0, vehicleCapacity-1);
@@ -31,7 +51,24 @@ class Vehicles {
             return veh;
         }
 
-        public void store(Vehicle)
+        public void store(Vehicle veh) {
+            Random rand = new Random(); boolean isopened = false;
+            int[] unable = new int[vehicleCapacity-1]; int ind = 0;
+            Vehicle veh;
+            while (!isopened) {
+                i = rand.randInt(0, vehicleCapacity-1);
+                if (!Arrays.asList(unable).contains(i) && inContainer[i] != null) {
+                    if (inContainer[i].battery >= 30.0) {
+                        System.out.println("Container Opened. Your vehicle is ready.");
+                        veh = inContainer[i]; isOpened = true; 
+                    } else {
+                        unable[ind] = i; ind++;
+                    }
+                } else if (!Arrays.asList(unable).contains(i) && inContainer[i] == null) {
+                    unable[ind] = i; ind++;
+                }
+            }
+        }
     }
     
     class Vehicle {
